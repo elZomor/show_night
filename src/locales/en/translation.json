@@ -1,0 +1,55 @@
+{
+  "appName": "Show Night",
+  "slogan": "Don't let a night pass, without a theatrical show",
+  "tagline": "All theater shows in your pocket",
+  "home": {
+    "todaysShows": "Today's Shows",
+    "noShows": "No shows scheduled for today",
+    "viewDetails": "View Details"
+  },
+  "search": {
+    "title": "Search Shows",
+    "searchByTitle": "Search by Title",
+    "searchByVenue": "Search by Venue",
+    "filterByType": "Filter by Type",
+    "searchByDate": "Search by Date",
+    "allTypes": "All Types",
+    "university": "University",
+    "independent": "Independent",
+    "professional": "Professional",
+    "noResults": "No results found"
+  },
+  "show": {
+    "author": "Author",
+    "director": "Director",
+    "company": "Theater Company",
+    "venue": "Venue",
+    "date": "Date",
+    "time": "Time",
+    "viewOnMap": "View on Map",
+    "promoCode": "Promo Code",
+    "notes": "Notes"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "noNotifications": "No notifications to display",
+    "newShow": "New Show",
+    "promoAlert": "Promo Alert",
+    "reminder": "Reminder"
+  },
+  "about": {
+    "title": "About",
+    "description": "Theater Today is your one-stop app for all theater shows in your city. Browse current shows, search for upcoming performances, and stay updated with the latest in theater.",
+    "contactUs": "Contact Us",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "notifications": "Notifications",
+    "about": "About"
+  }
+}
