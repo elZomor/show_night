@@ -74,6 +74,9 @@ const NavBar: React.FC = () => {
                     >
                         <NavItemMobile to="/home" label={t('nav.home')} setIsMenuOpen={setIsMenuOpen}
                                        isActive={isActive('/home')}/>
+                        <NavItemMobile to="/festivals" label={t('nav.festivals')} setIsMenuOpen={setIsMenuOpen}
+                                       isActive={isActive('/festivals')}/>
+
                         {/*<NavItemMobile to="/search" label={t('nav.search')} setIsMenuOpen={setIsMenuOpen}*/}
                         {/*               isActive={isActive('/search')}/>*/}
                         {/*<NavItemMobile to="/alerts" label={t('nav.notifications')} setIsMenuOpen={setIsMenuOpen}*/}
