@@ -51,6 +51,7 @@ const NavBar: React.FC = () => {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8">
                     <NavItem to="/home" label={t('nav.home')} isActive={isActive('/home')}/>
+                    <NavItem to="/festivals" label={t('nav.festivals')} isActive={isActive('/festivals')}/>
                     {/*<NavItem to="/search" label={t('nav.search')} isActive={isActive('/search')}/>*/}
                     {/*<NavItem to="/alerts" label={t('nav.notifications')} isActive={isActive('/alerts')}/>*/}
                     {/*<NavItem to="/about" label={t('nav.about')} isActive={isActive('/about')}/>*/}

@@ -10,6 +10,8 @@ import NotificationsPage from './pages/NotificationsPage';
 import AboutPage from './pages/AboutPage';
 import {useEffect} from 'react';
 import {useTranslation} from "react-i18next";
+import FestivalsPage from "./pages/FestivalsPage.tsx";
+import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
 
 function App() {
     const location = useLocation();
@@ -31,6 +33,8 @@ function App() {
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/alerts" element={<NotificationsPage/>}/>
                     <Route path="/about" element={<AboutPage/>}/>
+                    <Route path="/festivals" element={<FestivalsPage/>}/>
+                    <Route path="/festivals/:id" element={<FestivalDetailsPage/>}/>
                 </Routes>
             </AnimatePresence>
         </div>

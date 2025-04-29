@@ -17,7 +17,10 @@
     "university": "جامعي",
     "independent": "مستقل",
     "professional": "محترف",
-    "noResults": "لم يتم العثور على نتائج"
+    "noResults": "لم يتم العثور على نتائج",
+    "Soon": "قريبا",
+    "Running": "شغال دلوقتي",
+    "Done": "انتهى"
   },
   "show": {
     "author": "المؤلف",
@@ -50,6 +53,20 @@
     "home": "الرئيسية",
     "search": "البحث",
     "notifications": "الإشعارات",
-    "about": "حول"
+    "about": "حول",
+    "festivals": "المهرجانات"
+  },
+  "festival_details": {
+    "duration": "الفترة",
+    "state": "الحالة",
+    "jury": "لجنة التحكيم",
+    "awards": "الجوايز والتكريمات",
+    "extra_details": "تفاصيل أخرى",
+    "best_play": "أفضل عرض مسرحي",
+    "best_director": "أفضل مخرج",
+    "best_actor": "أفضل ممثل",
+    "best_actress": "أفضل ممثلة",
+    "best_stage_design": "أفضل ديكور",
+    "jury_award": "جائزة لجنة التحكيم الخاصة"
   }
 }

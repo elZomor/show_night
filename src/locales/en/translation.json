@@ -17,7 +17,10 @@
     "university": "University",
     "independent": "Independent",
     "professional": "Professional",
-    "noResults": "No results found"
+    "noResults": "No results found",
+    "Soon": "Soon",
+    "Running": "Running",
+    "Done": "Finished"
   },
   "show": {
     "author": "Author",
@@ -50,6 +53,20 @@
     "home": "Home",
     "search": "Search",
     "notifications": "Notifications",
-    "about": "About"
+    "about": "About",
+    "festivals": "Festivals"
+  },
+  "festival_details": {
+    "duration": "Duration",
+    "state": "State",
+    "jury": "Juries",
+    "awards": "Awards",
+    "extra_details": "Extra Details",
+    "best_play": "Best Play",
+    "best_director": "Best Director",
+    "best_actor": "Best Actor",
+    "best_actress": "Best Actress",
+    "best_stage_design": "Best Stage Design",
+    "jury_award": "Jury Award"
   }
 }

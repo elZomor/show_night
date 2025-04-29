@@ -4,14 +4,13 @@ import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 
 import PageTransition from '../components/PageTransition';
-import ShowCard from '../components/ShowCard';
-import {getTodayShows} from '../data/shows';
-import {getLongFormattedDateToday} from "../utils/dateUtils.ts";
 import Logo from "../assets/logo_navbar.png";
+import {festivals} from "../data/festivals.ts";
+import FestivalCard from "../components/FestivalCard.tsx";
 
-const HomePage: React.FC = () => {
-    const {t, i18n} = useTranslation();
-    const todayShows = getTodayShows();
+const FestivalPage: React.FC = () => {
+    const {t} = useTranslation();
+    const festivalsList = festivals;
     const containerVariants = {
         hidden: {opacity: 0},
         visible: {
@@ -32,16 +31,7 @@ const HomePage: React.FC = () => {
                             className="h-32 w-auto"
                             alt="Logo"
                         />
-                        <p className="text-xl font-display font-bold text-[#e0caaf] mt-[-20px] mb-4">{t('slogan')}</p>
-                        <div className="flex flex-col items-center justify-center">
-                            <h1 className="text-3xl font-display font-bold text-white mb-2">
-                                {t('home.todaysShows')}
-                            </h1>
-                            <p className="text-white text-lg">
-                                {getLongFormattedDateToday(i18n.language)}
-                            </p>
-                        </div>
-
+                        <p className="text-xl font-display font-bold text-[#e0caaf] mt-[-20px] mb-4">{t('tagline')}</p>
                     </div>
                 </div>
 
@@ -51,15 +41,15 @@ const HomePage: React.FC = () => {
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 0.5}}
                 >
-                    {todayShows.length > 0 ? (
+                    {festivalsList.length > 0 ? (
                         <motion.div
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            {todayShows.map((show, index) => (
-                                <ShowCard key={show.id} show={show} index={index}/>
+                            {festivalsList.map((festival, index) => (
+                                <FestivalCard key={festival.id} festival={festival} index={index}/>
                             ))}
                         </motion.div>
                     ) : (
@@ -83,4 +73,4 @@ const HomePage: React.FC = () => {
     );
 };
 
-export default HomePage;
+export default FestivalPage;
