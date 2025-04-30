@@ -125,12 +125,19 @@ const ShowDetailsPage: React.FC = () => {
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('show.cast')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
-                                    {Object.entries(data.cast).map(([key, value]) => (
-                                        <li key={key}>
-                                            {key}: <span
-                                            className="text-gray-400">{value}</span>
-                                        </li>
-                                    ))}
+                                    {Array.isArray(data.cast) ? (
+                                        data.cast.map((item, index) => (
+                                            <li key={index} className="text-gray-400">
+                                                {item}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        Object.entries(data.cast).map(([key, value]) => (
+                                            <li key={key}>
+                                                {key}: <span className="text-gray-400">{value}</span>
+                                            </li>
+                                        ))
+                                    )}
                                 </ul>
                             </motion.div>
                         )}
