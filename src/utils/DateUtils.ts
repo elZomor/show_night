@@ -1,5 +1,7 @@
 import {arSA, enUS} from "date-fns/locale";
 import {format} from "date-fns";
+import {toZonedTime} from 'date-fns-tz';
+
 
 export const getLongFormattedDateToday = (language: string) => {
     return getLongFormattedDate(language, new Date());
@@ -15,3 +17,8 @@ export const getLongFormattedDate = (language: string, date: Date) => {
     return `${dayName} ${day} - ${monthName} - ${year}`;
 }
 
+export const formatDateForRequest = (date: Date): string => {
+    const timeZone = 'Africa/Cairo';
+    const zonedDate = toZonedTime(date, timeZone);
+    return format(zonedDate, 'yyyy-MM-dd');
+};
