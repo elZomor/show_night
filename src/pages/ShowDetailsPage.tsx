@@ -69,11 +69,11 @@ const ShowDetailsPage: React.FC = () => {
                             visible: {opacity: 1, y: 0},
                         }}
                     >
-                        <div className="flex items-center gap-2">
-                            <h1 className="text-4xl font-display font-bold mb-6 text-secondary-500">
+                        <div className="md:flex items-center md:gap-2">
+                            <h1 className="text-4xl font-display font-bold md:mb-6 text-secondary-500 text-center md:text-left">
                                 {data.name}
                             </h1>
-                            <h1 className={`text-4xl font-display font-bold mb-6 mx-12 ${data.is_open ? 'text-green-500' : 'text-accent-500'}`}>
+                            <h1 className={`text-4xl font-display font-bold mb-6 md:mx-12 text-center md:text-left ${data.is_open ? 'text-green-500' : 'text-accent-500'}`}>
                                 {data.is_open ? t('show.available') : t('show.finished')}
                             </h1>
                         </div>
