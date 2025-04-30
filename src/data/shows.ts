@@ -119,18 +119,6 @@ export const shows: Show[] = [
     }
 ];
 
-export const getShowById = (id: string): Show | undefined => {
-    return shows.find(show => show.id === id);
-};
-
-export const getTodayShows = (): Show[] => {
-    const today = new Date().toLocaleDateString('en-CA');
-    return shows.filter(show => show.show_date === today);
-};
-
-export const getShowsByDate = (date: string): Show[] => {
-    return shows.filter(show => show.show_date === date);
-};
 
 export const searchShows = (query: string, type?: string, date?: string): Show[] => {
     return shows.filter(show => {

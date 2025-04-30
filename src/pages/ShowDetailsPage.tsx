@@ -1,17 +1,18 @@
-import React, {useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import React, {ReactNode} from 'react';
+import {useParams} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
-import {format} from 'date-fns';
-import {ArrowLeft, MapPin, Clock, Calendar, ExternalLink} from 'lucide-react';
 
 import PageTransition from '../components/PageTransition';
-import {getShowById} from '../data/shows';
+import {useQuery} from "@tanstack/react-query";
+import {get_request} from "../utils/APIClient.ts";
+import {getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
+import {Show} from "../types/Show.ts";
 
 interface InfoRowProps {
     icon: React.ReactNode;
     label: string;
-    value: string;
+    value: ReactNode;
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({icon, label, value}) => (
@@ -24,42 +25,18 @@ const InfoRow: React.FC<InfoRowProps> = ({icon, label, value}) => (
 
 const ShowDetailsPage: React.FC = () => {
     const {id} = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const {t, i18n} = useTranslation();
+    const {data} = useQuery<Show>({
+        queryKey: ['show', id],
+        queryFn: () => get_request(`/shows/${id}`),
+    });
 
-    const show = getShowById(id || '');
+    console.log('data.show_date')
+    console.log(data?.show_date)
+    return (data && <PageTransition>
+            <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
 
-    useEffect(() => {
-        if (!show) {
-            navigate('/home');
-        }
-    }, [show, navigate]);
 
-    if (!show) return null;
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return format(date, 'PPPP');
-    };
-
-    return (
-        <PageTransition>
-            <div className="container-custom pt-6 pb-24 text-white">
-                {/* Back Button */}
-                <motion.button
-                    onClick={() => navigate(-1)}
-                    className="flex items-center text-secondary-500 mb-6"
-                    whileHover={{x: i18n.language === 'ar' ? 3 : -3}}
-                    whileTap={{scale: 0.95}}
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    transition={{duration: 0.5}}
-                >
-                    <ArrowLeft size={20} className={i18n.language === 'ar' ? 'ml-1' : 'mr-1'}/>
-                    <span>{t('nav.home')}</span>
-                </motion.button>
-
-                {/* Main Grid */}
                 <motion.div
                     className="grid grid-cols-1 md:grid-cols-2 gap-8"
                     initial="hidden"
@@ -78,9 +55,9 @@ const ShowDetailsPage: React.FC = () => {
                         }}
                     >
                         <img
-                            src={show.poster}
-                            alt={show.name}
-                            className="w-full h-auto rounded-2xl shadow-lg bg-theater-dark object-cover"
+                            src={data.poster}
+                            alt={data.name}
+                            className="w-full h-[350px] md:h-[700px] rounded-2xl shadow-lg bg-primary-950 object-contain"
                         />
                     </motion.div>
 
@@ -92,45 +69,104 @@ const ShowDetailsPage: React.FC = () => {
                             visible: {opacity: 1, y: 0},
                         }}
                     >
-                        <h1 className="text-4xl font-display font-bold mb-6 text-secondary-500">
-                            {show.name}
-                        </h1>
-
-                        <div className="space-y-4 text-base">
-                            {show.author && (
-                                <InfoRow icon={<></>} label={t('show.author')} value={show.author}/>
-                            )}
-                            <InfoRow icon={<></>} label={t('show.director')} value={show.director}/>
-                            <InfoRow icon={<></>} label={t('show.company')} value={show.cast_name}/>
-                            <InfoRow icon={<MapPin size={16}/>} label={t('show.venue')} value={show.theater_name}/>
-                            <InfoRow icon={<Calendar size={16}/>} label={t('show.date')}
-                                     value={formatDate(show.show_date)}/>
-                            <InfoRow icon={<Clock size={16}/>} label={t('show.time')} value={show.show_time}/>
+                        <div className="flex items-center gap-2">
+                            <h1 className="text-4xl font-display font-bold mb-6 text-secondary-500">
+                                {data.name}
+                            </h1>
+                            <h1 className={`text-4xl font-display font-bold mb-6 mx-12 ${data.is_open ? 'text-green-500' : 'text-accent-500'}`}>
+                                {data.is_open ? t('show.available') : t('show.finished')}
+                            </h1>
                         </div>
 
-                        {/* Map Button */}
-                        <motion.a
-                            href={show.mapLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-primary flex items-center justify-center mt-8 mb-6"
-                            whileHover={{scale: 1.05}}
-                            whileTap={{scale: 0.95}}
-                        >
-                            <MapPin size={18} className="mr-2"/>
-                            {t('show.viewOnMap')}
-                            <ExternalLink size={16} className="ml-2"/>
-                        </motion.a>
-                        {/* Notes */}
-                        {show.notes && (
+                        <div className="space-y-4 text-base mb-8">
+                            <InfoRow icon={<></>} label={t('show.event_link')} value={<motion.a
+                                href={data.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mx-2 text-secondary-400 font-bold hover:text-accent-500"
+                                whileHover={{scale: 1.05}}
+                                whileTap={{scale: 0.95}}
+                            >
+                                {t('show.facebook_link')}
+                            </motion.a>}/>
+                            {data.festival_name && (
+                                <InfoRow icon={<></>} label={t('show.festival')} value={data.festival_name}/>
+                            )}
+                            {data.author && (
+                                <InfoRow icon={<></>} label={t('show.author')} value={data.author}/>
+                            )}
+                            <InfoRow icon={<></>} label={t('show.director')} value={data.director}/>
+                            <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>
+                            <InfoRow icon={<></>} label={t('show.venue')} value={<>
+                                {data.theater_name}
+                                <motion.a
+                                    href={data.theater_link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mx-2 text-secondary-400 font-bold hover:text-accent-500"
+                                    whileHover={{scale: 1.05}}
+                                    whileTap={{scale: 0.95}}
+                                >
+                                    ({t('show.show_map')})
+                                </motion.a>
+                            </>}/>
+                            <InfoRow icon={<></>} label={t('show.date')}
+                                     value={getLongFormattedDate(i18n.language, new Date(data.show_date))}/>
+                            <InfoRow icon={<></>} label={t('show.time')}
+                                     value={translateTime(data.show_time, i18n.language)}/>
+                        </div>
+
+                        {data.cast && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('show.cast')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {Object.entries(data.cast).map(([key, value]) => (
+                                        <li key={key}>
+                                            {key}: <span
+                                            className="text-gray-400">{value}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
+
+                        {data.crew && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('show.crew')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {Object.entries(data.crew).map(([key, value]) => (
+                                        <li key={key}>
+                                            {key}: <span
+                                            className="text-gray-400">{value}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
+
+                        {data.notes && (
                             <motion.div
                                 className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5}}
                             >
-                                <h3 className="text-lg font-display font-semibold mb-2">{t('show.notes')}</h3>
-                                <p>{show.notes}</p>
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('show.extra_details')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {data.notes.map((member: string, i: number) => (
+                                        <li key={i}>{member}</li>
+                                    ))}
+                                </ul>
                             </motion.div>
                         )}
                     </motion.div>

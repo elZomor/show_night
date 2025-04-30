@@ -11,7 +11,12 @@ export interface Show {
     author: string;
     director: string;
     cast_name: string;
-    mapLink?: string;
+    theater_link?: string;
     promoCode?: string;
-    notes?: string;
+    notes?: string[];
+    is_open: boolean;
+    link: string;
+    festival_name?: string;
+    cast: Record<string, string>
+    crew: Record<string, string>
 }

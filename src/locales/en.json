@@ -31,7 +31,17 @@
     "time": "Time",
     "viewOnMap": "View on Map",
     "promoCode": "Promo Code",
-    "notes": "Notes"
+    "notes": "Notes",
+    "finished": "Finished ✔",
+    "available": "Available 📅",
+    "event_link": "Event Link",
+    "facebook_link": "Facebook Link",
+    "reservation_link": "Reservation Link",
+    "festival": "Festival Name",
+    "show_map": "show map",
+    "cast": "Acting Cast",
+    "crew": "Cast",
+    "extra_details": "Extra Details"
   },
   "notifications": {
     "title": "Notifications",

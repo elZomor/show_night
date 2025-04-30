@@ -9,6 +9,7 @@ import {getLongFormattedDateToday, formatDateForRequest} from "../utils/DateUtil
 import Logo from "../assets/logo_navbar.png";
 import {useQuery} from "@tanstack/react-query";
 import {get_request} from "../utils/APIClient.ts";
+import {Show} from "../types/Show.ts";
 
 const HomePage: React.FC = () => {
     const {t, i18n} = useTranslation();
@@ -27,7 +28,7 @@ const HomePage: React.FC = () => {
         queryFn: () => get_request(`/shows?date=${formatDateForRequest(new Date())}`),
     });
 
-    const showsList = data ? data['results'] : []
+    const showsList: Show[] = data ? data['results'] : []
 
     return (
         <PageTransition>

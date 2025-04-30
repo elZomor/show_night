@@ -13,18 +13,18 @@ interface ShowCardProps {
 const ShowCard: React.FC<ShowCardProps> = ({show, index}) => {
     const {t} = useTranslation();
 
-    const getBadgeClass = (type: string) => {
-        switch (type) {
-            case 'University':
-                return 'badge-university';
-            case 'Independent':
-                return 'badge-independent';
-            case 'Professional':
-                return 'badge-professional';
-            default:
-                return 'badge-university';
-        }
-    };
+    // const getBadgeClass = (type: string) => {
+    //     switch (type) {
+    //         case 'University':
+    //             return 'badge-university';
+    //         case 'Independent':
+    //             return 'badge-independent';
+    //         case 'Professional':
+    //             return 'badge-professional';
+    //         default:
+    //             return 'badge-university';
+    //     }
+    // };
 
     return (
         <motion.div
