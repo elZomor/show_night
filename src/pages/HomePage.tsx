@@ -5,13 +5,13 @@ import {useTranslation} from 'react-i18next';
 
 import PageTransition from '../components/PageTransition';
 import ShowCard from '../components/ShowCard';
-import {getTodayShows} from '../data/shows';
-import {getLongFormattedDateToday} from "../utils/dateUtils.ts";
+import {getLongFormattedDateToday, formatDateForRequest} from "../utils/DateUtils.ts";
 import Logo from "../assets/logo_navbar.png";
+import {useQuery} from "@tanstack/react-query";
+import {get_request} from "../utils/APIClient.ts";
 
 const HomePage: React.FC = () => {
     const {t, i18n} = useTranslation();
-    const todayShows = getTodayShows();
     const containerVariants = {
         hidden: {opacity: 0},
         visible: {
@@ -21,6 +21,13 @@ const HomePage: React.FC = () => {
             }
         }
     };
+
+    const {data} = useQuery({
+        queryKey: ['shows'],
+        queryFn: () => get_request(`/shows?date=${formatDateForRequest(new Date())}`),
+    });
+
+    const showsList = data ? data['results'] : []
 
     return (
         <PageTransition>
@@ -51,14 +58,14 @@ const HomePage: React.FC = () => {
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 0.5}}
                 >
-                    {todayShows.length > 0 ? (
+                    {showsList && showsList.length > 0 ? (
                         <motion.div
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            {todayShows.map((show, index) => (
+                            {showsList.map((show, index) => (
                                 <ShowCard key={show.id} show={show} index={index}/>
                             ))}
                         </motion.div>

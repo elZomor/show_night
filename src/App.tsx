@@ -12,6 +12,10 @@ import {useEffect} from 'react';
 import {useTranslation} from "react-i18next";
 import FestivalsPage from "./pages/FestivalsPage.tsx";
 import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+
+
+const queryClient = new QueryClient();
 
 function App() {
     const location = useLocation();
@@ -23,21 +27,23 @@ function App() {
     }, [i18n.language]);
 
     return (
-        <div className="flex flex-col min-h-screen bg-primary-950">
-            {showNavBar && <NavBar/>}
-            <AnimatePresence mode="wait">
-                <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<SplashPage/>}/>
-                    <Route path="/home" element={<HomePage/>}/>
-                    <Route path="/show/:id" element={<ShowDetailsPage/>}/>
-                    <Route path="/search" element={<SearchPage/>}/>
-                    <Route path="/alerts" element={<NotificationsPage/>}/>
-                    <Route path="/about" element={<AboutPage/>}/>
-                    <Route path="/festivals" element={<FestivalsPage/>}/>
-                    <Route path="/festivals/:id" element={<FestivalDetailsPage/>}/>
-                </Routes>
-            </AnimatePresence>
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <div className="flex flex-col min-h-screen bg-primary-950">
+                {showNavBar && <NavBar/>}
+                <AnimatePresence mode="wait">
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<SplashPage/>}/>
+                        <Route path="/home" element={<HomePage/>}/>
+                        <Route path="/show/:id" element={<ShowDetailsPage/>}/>
+                        <Route path="/search" element={<SearchPage/>}/>
+                        <Route path="/alerts" element={<NotificationsPage/>}/>
+                        <Route path="/about" element={<AboutPage/>}/>
+                        <Route path="/festivals" element={<FestivalsPage/>}/>
+                        <Route path="/festivals/:id" element={<FestivalDetailsPage/>}/>
+                    </Routes>
+                </AnimatePresence>
+            </div>
+        </QueryClientProvider>
     );
 }
 

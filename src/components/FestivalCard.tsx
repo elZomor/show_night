@@ -5,7 +5,7 @@ import {useTranslation} from 'react-i18next';
 import {Clock} from 'lucide-react';
 import {Festival} from "../types/Festival.ts";
 import {getFestivalStatus} from "../data/festivals.ts";
-import {getLongFormattedDate} from "../utils/dateUtils.ts";
+import {getLongFormattedDate} from "../utils/DateUtils.ts";
 
 interface FestivalCardProps {
     festival: Festival;

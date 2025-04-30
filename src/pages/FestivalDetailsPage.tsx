@@ -5,7 +5,7 @@ import {useTranslation} from 'react-i18next';
 
 import PageTransition from '../components/PageTransition';
 import {getFestivalById} from "../data/festivals.ts";
-import {getLongFormattedDate} from "../utils/dateUtils.ts";
+import {getLongFormattedDate} from "../utils/DateUtils.ts";
 
 interface InfoRowProps {
     icon: React.ReactNode;

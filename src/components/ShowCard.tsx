@@ -44,29 +44,29 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index}) => {
                     transition={{duration: 0.3}}
                 >
                     <img
-                        src={show.posterUrl}
-                        alt={show.title}
+                        src={show.poster}
+                        alt={show.name}
                         className="w-full h-48 object-cover"
                     />
                 </motion.div>
                 <div className="absolute top-2 right-2">
-                    <span className={getBadgeClass(show.type)}>
-                        {t(`search.${show.type.toLowerCase()}`)}
-                    </span>
+                    {/*<span className={getBadgeClass(show.type)}>*/}
+                    {/*    {t(`search.${show.type.toLowerCase()}`)}*/}
+                    {/*</span>*/}
                 </div>
             </div>
 
             <div className="p-4">
-                <h3 className="text-xl font-display font-semibold text-white mb-2">{show.title}</h3>
+                <h3 className="text-xl font-display font-semibold text-white mb-2">{show.name}</h3>
 
                 <div className="flex items-center text-gray-300 mb-2">
                     <MapPin size={16} className="mr-1"/>
-                    <span className="text-sm">{show.venue}</span>
+                    <span className="text-sm">{show.theater_name}</span>
                 </div>
 
                 <div className="flex items-center text-gray-300 mb-4">
                     <Clock size={16} className="mr-1"/>
-                    <span className="text-sm">{show.time}</span>
+                    <span className="text-sm">{show.show_time}</span>
                 </div>
 
                 <Link to={`/show/${show.id}`}>

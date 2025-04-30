@@ -78,8 +78,8 @@ const ShowDetailsPage: React.FC = () => {
                         }}
                     >
                         <img
-                            src={show.posterUrl}
-                            alt={show.title}
+                            src={show.poster}
+                            alt={show.name}
                             className="w-full h-auto rounded-2xl shadow-lg bg-theater-dark object-cover"
                         />
                     </motion.div>
@@ -93,7 +93,7 @@ const ShowDetailsPage: React.FC = () => {
                         }}
                     >
                         <h1 className="text-4xl font-display font-bold mb-6 text-secondary-500">
-                            {show.title}
+                            {show.name}
                         </h1>
 
                         <div className="space-y-4 text-base">
@@ -101,10 +101,11 @@ const ShowDetailsPage: React.FC = () => {
                                 <InfoRow icon={<></>} label={t('show.author')} value={show.author}/>
                             )}
                             <InfoRow icon={<></>} label={t('show.director')} value={show.director}/>
-                            <InfoRow icon={<></>} label={t('show.company')} value={show.theaterCompany}/>
-                            <InfoRow icon={<MapPin size={16}/>} label={t('show.venue')} value={show.venue}/>
-                            <InfoRow icon={<Calendar size={16}/>} label={t('show.date')} value={formatDate(show.date)}/>
-                            <InfoRow icon={<Clock size={16}/>} label={t('show.time')} value={show.time}/>
+                            <InfoRow icon={<></>} label={t('show.company')} value={show.cast_name}/>
+                            <InfoRow icon={<MapPin size={16}/>} label={t('show.venue')} value={show.theater_name}/>
+                            <InfoRow icon={<Calendar size={16}/>} label={t('show.date')}
+                                     value={formatDate(show.show_date)}/>
+                            <InfoRow icon={<Clock size={16}/>} label={t('show.time')} value={show.show_time}/>
                         </div>
 
                         {/* Map Button */}
