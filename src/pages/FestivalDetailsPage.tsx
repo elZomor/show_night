@@ -1,16 +1,19 @@
-import React, {useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import React, {ReactNode} from 'react';
+import {useParams} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 
 import PageTransition from '../components/PageTransition';
-import {getFestivalById} from "../data/festivals.ts";
+import {useQuery} from "@tanstack/react-query";
+import {get_request} from "../utils/APIClient.ts";
+import {Festival} from "../types/Festival.ts";
 import {getLongFormattedDate} from "../utils/DateUtils.ts";
+import ShowCard from "../components/ShowCard.tsx";
 
 interface InfoRowProps {
     icon: React.ReactNode;
     label: string;
-    value: string;
+    value: ReactNode;
 }
 
 const InfoRow: React.FC<InfoRowProps> = ({icon, label, value}) => (
@@ -21,93 +24,168 @@ const InfoRow: React.FC<InfoRowProps> = ({icon, label, value}) => (
     </div>
 );
 
+const containerVariants = {
+    hidden: {opacity: 0},
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
 const FestivalDetailsPage: React.FC = () => {
     const {id} = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const {t, i18n} = useTranslation();
+    const {data} = useQuery<Festival>({
+        queryKey: ['festival', id],
+        queryFn: () => get_request(`/shows/festivals/${id}`),
+    });
+    return (data && <PageTransition>
+            <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
 
-    const festivalDetails = getFestivalById(id || '');
 
-    useEffect(() => {
-        if (!festivalDetails) {
-            navigate('/home');
-        }
-    }, [festivalDetails, navigate]);
-
-    if (!festivalDetails) return null;
-
-    return (
-        <PageTransition>
-            <div className="container-custom pt-6 pb-24 text-white">
                 <motion.div
-                    className="bg-[#1c1f29] border border-gray-700 rounded-2xl p-6 text-gray-100"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: {opacity: 0},
+                        visible: {opacity: 1, transition: {staggerChildren: 0.2}},
+                    }}
+                >
+
+                    {/* Show Details */}
+                    <motion.div
+                        className="flex flex-col justify-center order-2 md:order-1"
+                        variants={{
+                            hidden: {opacity: 0, y: 20},
+                            visible: {opacity: 1, y: 0},
+                        }}
+                    >
+                        <div className="md:flex items-center md:gap-2">
+                            <h1 className="text-4xl font-display font-bold md:mb-6 text-secondary-500 text-center md:text-left">
+                                {data.name}
+                            </h1>
+                        </div>
+
+                        <div className="space-y-4 text-base mb-8">
+                            {data.description && (
+                                <InfoRow icon={<></>} label={t('festival.description')} value={data.description}/>
+                            )}
+                            {data.organizer && (
+                                <InfoRow icon={<></>} label={t('festival.organizer')} value={data.organizer}/>
+                            )}
+                            {data.start_date && (
+                                <InfoRow icon={<></>} label={t('festival.start_date')}
+                                         value={getLongFormattedDate(i18n.language, new Date(data.start_date))}/>
+                            )}
+                            {data.end_date && (
+                                <InfoRow icon={<></>} label={t('festival.end_date')}
+                                         value={getLongFormattedDate(i18n.language, new Date(data.end_date))}/>
+                            )}
+                        </div>
+
+                        {data.jury_list && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.jury')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {Array.isArray(data.jury_list) ? (
+                                        data.jury_list.map((item, index) => (
+                                            <li key={index} className="text-gray-400">
+                                                {item}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        Object.entries(data.jury_list).map(([key, value]) => (
+                                            <li key={key}>
+                                                {key}: <span className="text-gray-400">{value}</span>
+                                            </li>
+                                        ))
+                                    )}
+                                </ul>
+                            </motion.div>
+                        )}
+
+                        {data.awards && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.awards')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {Object.entries(data.awards).map(([key, value]) => (
+                                        <li key={key}>
+                                            {key}: <span
+                                            className="text-gray-400">{value}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
+
+                        {data.extra_details && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.extra_details')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {data.extra_details.map((member: string, i: number) => (
+                                        <li key={i}>{member}</li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
+                    </motion.div>
+
+                    <motion.div
+                        className="flex justify-center order-1 md:order-2"
+                        variants={{
+                            hidden: {opacity: 0, y: 20},
+                            visible: {opacity: 1, y: 0},
+                        }}
+                    >
+                        <img
+                            src={data.logo}
+                            alt={data.name}
+                            className="w-full h-[350px] md:h-[700px] rounded-2xl shadow-lg bg-primary-950 object-contain"
+                        />
+                    </motion.div>
+                </motion.div>
+
+                <motion.div
+                    className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 0.5}}
                 >
-                    {/* Grid: نص في جانب، صورة في جانب */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Text Section */}
-                        <div>
-                            <h1 className="text-3xl font-display font-bold mb-6 text-secondary-500">
-                                {festivalDetails.name}
-                            </h1>
+                    <h3 className="text-lg font-semibold mb-6 text-white">{t('festival.shows')}</h3>
 
-                            <div className="space-y-3 text-sm md:text-base">
-                                <InfoRow icon={<></>} label={t('festival_details.duration')}
-                                         value={`${getLongFormattedDate(i18n.language, new Date(festivalDetails.startDate))} – ${getLongFormattedDate(i18n.language, new Date(festivalDetails.endDate))}`}/>
-                                <InfoRow icon={<></>} label={t('festival_details.state')} value={
-                                    festivalDetails.status === 'Running' ? 'شغال دلوقتي ✅'
-                                        : festivalDetails.status === 'Soon' ? 'قريبًا 🟡'
-                                            : 'انتهى ❌'
-                                }/>
-                            </div>
-
-                            <div className="mt-6">
-                                <h3 className="text-lg font-semibold mb-2 text-white">{t('festival_details.jury')}</h3>
-                                <ul className="list-disc list-inside text-gray-300">
-                                    {festivalDetails.jury.map((member, i) => (
-                                        <li key={i}>{member}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Image Section */}
-                        <div className="flex justify-center items-center max-h-[300px]">
-                            <img
-                                src={festivalDetails.logo}
-                                alt={festivalDetails.name}
-                                className="w-full h-full object-contain rounded-xl"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Awards */}
-                    <div className="mt-10">
-                        <h3 className="text-lg font-semibold mb-2 text-white">{t('festival_details.awards')}</h3>
-                        <ul className="list-disc list-inside text-gray-300">
-                            {Object.entries(festivalDetails.awards).map(([key, value]) => (
-                                <li key={key}>
-                                    {t(`festival_details.${key}`)}: <span className="text-gray-400">({value})</span>
-                                </li>
+                    {(data.shows && data.shows.length > 0) && (
+                        <motion.div
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {data.shows.map((show, index) => (
+                                <ShowCard key={show.id} show={show} index={index} showDate={true}/>
                             ))}
-                        </ul>
-                    </div>
-
-                    {/* Extra Details */}
-                    <div className="mt-10">
-                        <h3 className="text-lg font-semibold mb-2 text-white">{t('festival_details.extra_details')}</h3>
-                        <ul className="list-disc list-inside text-gray-300">
-                            {festivalDetails.extra_details.map((member, i) => (
-                                <li key={i}>{member}</li>
-                            ))}
-                        </ul>
-                    </div>
+                        </motion.div>
+                    )}
                 </motion.div>
             </div>
         </PageTransition>
-
     );
 };
 

@@ -66,10 +66,15 @@
     "about": "حول",
     "festivals": "المهرجانات"
   },
-  "festival_details": {
+  "festival": {
     "duration": "الفترة",
     "state": "الحالة",
     "jury": "لجنة التحكيم",
+    "start_date": "من",
+    "end_date": "إلى",
+    "organizer": "الجهة المنظمة",
+    "shows": "عروض المهرجان",
+    "description": "التوصيف",
     "awards": "الجوايز والتكريمات",
     "extra_details": "تفاصيل أخرى",
     "best_play": "أفضل عرض مسرحي",

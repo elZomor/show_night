@@ -66,11 +66,16 @@
     "about": "About",
     "festivals": "Festivals"
   },
-  "festival_details": {
+  "festival": {
     "duration": "Duration",
     "state": "State",
     "jury": "Juries",
     "awards": "Awards",
+    "start_date": "From",
+    "end_date": "To",
+    "organizer": "Organizer",
+    "shows": "Festival Shows",
+    "description": "Description",
     "extra_details": "Extra Details",
     "best_play": "Best Play",
     "best_director": "Best Director",

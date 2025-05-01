@@ -4,7 +4,6 @@ import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 import {Clock} from 'lucide-react';
 import {Festival} from "../types/Festival.ts";
-import {getFestivalStatus} from "../data/festivals.ts";
 import {getLongFormattedDate} from "../utils/DateUtils.ts";
 
 interface FestivalCardProps {
@@ -14,19 +13,6 @@ interface FestivalCardProps {
 
 const FestivalCard: React.FC<FestivalCardProps> = ({festival, index}) => {
     const {t, i18n} = useTranslation();
-
-    const getBadgeClass = (type: string) => {
-        switch (type) {
-            case 'University':
-                return 'badge-university';
-            case 'Independent':
-                return 'badge-independent';
-            case 'Professional':
-                return 'badge-professional';
-            default:
-                return 'badge-university';
-        }
-    };
 
     const getFestivalStatusClass = (type: string) => {
         switch (type) {
@@ -65,11 +51,8 @@ const FestivalCard: React.FC<FestivalCardProps> = ({festival, index}) => {
                     />
                 </motion.div>
                 <div className="absolute top-2 right-2">
-                    <span className={getBadgeClass(festival.type)}>
-                        {t(`search.${festival.type.toLowerCase()}`)}
-                    </span>
-                    <span className={getFestivalStatusClass(getFestivalStatus(festival)) + ' mx-2'}>
-                        {t(`search.${getFestivalStatus(festival)}`)}
+                    <span className={getFestivalStatusClass(festival.festival_status) + ' mx-2'}>
+                        {t(`search.${festival.festival_status}`)}
                     </span>
                 </div>
             </div>
@@ -83,7 +66,7 @@ const FestivalCard: React.FC<FestivalCardProps> = ({festival, index}) => {
                 <div className="flex items-center text-gray-300 mb-4">
                     <Clock size={16}/>
                     <span
-                        className="text-sm mx-2">{getLongFormattedDate(i18n.language, new Date(festival.startDate))} : {getLongFormattedDate(i18n.language, new Date(festival.endDate))}</span>
+                        className="text-sm mx-2">{getLongFormattedDate(i18n.language, new Date(festival.start_date))} : {getLongFormattedDate(i18n.language, new Date(festival.end_date))}</span>
                 </div>
 
 

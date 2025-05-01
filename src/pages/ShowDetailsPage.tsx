@@ -31,8 +31,6 @@ const ShowDetailsPage: React.FC = () => {
         queryFn: () => get_request(`/shows/${id}`),
     });
 
-    console.log('data.show_date')
-    console.log(data?.show_date)
     return (data && <PageTransition>
             <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
 

@@ -1,17 +1,6 @@
-import {Festival, FestivalDetails, FestivalStatus} from "../types/Festival.ts";
+import {FestivalDetails} from "../types/Festival.ts";
 import Cairo from '../assets/CU.png';
 
-export const festivals: Festival[] = [
-    {
-        id: '1',
-        name: 'مهرجان جامعة القاهرة للعروض الطويلة',
-        startDate: '2025-04-26',
-        endDate: '2025-05-16',
-        description: 'مهرجان جامعة القاهرة للعروض الطويلة يقام في كل عام في الترم الثاني',
-        logo: Cairo,
-        type: 'University'
-    }
-];
 
 export const festivalDetails: FestivalDetails[] = [{
     id: '1',
@@ -40,15 +29,6 @@ export const festivalDetails: FestivalDetails[] = [{
     logo: Cairo
 
 }]
-
-export const getFestivalStatus = (festival: Festival): FestivalStatus => {
-    const now = new Date();
-    const start = new Date(festival.startDate);
-    const end = new Date(festival.endDate);
-    if (now >= start && now <= end) return 'Running';
-    if (now > end) return "Done";
-    return "Soon";
-};
 
 export const getFestivalById = (id: string): FestivalDetails | undefined => {
     return festivalDetails.find(festival => festival.id === id);

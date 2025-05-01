@@ -11,8 +11,8 @@ import AboutPage from './pages/AboutPage';
 import {useEffect} from 'react';
 import {useTranslation} from "react-i18next";
 import FestivalsPage from "./pages/FestivalsPage.tsx";
-import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
 
 
 const queryClient = new QueryClient();

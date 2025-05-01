@@ -3,15 +3,17 @@ import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 import {Show} from '../types/Show';
-import {Clock, MapPin} from 'lucide-react';
+import {Calendar, Clock, MapPin, Users} from 'lucide-react';
+import {getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
 
 interface ShowCardProps {
     show: Show;
     index: number;
+    showDate: boolean;
 }
 
-const ShowCard: React.FC<ShowCardProps> = ({show, index}) => {
-    const {t} = useTranslation();
+const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
+    const {t, i18n} = useTranslation();
 
     // const getBadgeClass = (type: string) => {
     //     switch (type) {
@@ -46,7 +48,7 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index}) => {
                     <img
                         src={show.poster}
                         alt={show.name}
-                        className="w-full h-48 object-cover"
+                        className="w-full h-48 object-contain "
                     />
                 </motion.div>
                 <div className="absolute top-2 right-2">
@@ -60,13 +62,23 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index}) => {
                 <h3 className="text-xl font-display font-semibold text-white mb-2">{show.name}</h3>
 
                 <div className="flex items-center text-gray-300 mb-2">
-                    <MapPin size={16} className="mr-1"/>
+                    <Users size={16} className="mx-2"/>
+                    <span className="text-sm">{show.cast_name}</span>
+                </div>
+
+                <div className="flex items-center text-gray-300 mb-2">
+                    <MapPin size={16} className="mx-2"/>
                     <span className="text-sm">{show.theater_name}</span>
                 </div>
 
+                {showDate && <div className="flex items-center text-gray-300 mb-2">
+                    <Calendar size={16} className="mx-2"/>
+                    <span className="text-sm">{getLongFormattedDate(i18n.language, new Date(show.show_date))}</span>
+                </div>
+                }
                 <div className="flex items-center text-gray-300 mb-4">
-                    <Clock size={16} className="mr-1"/>
-                    <span className="text-sm">{show.show_time}</span>
+                    <Clock size={16} className="mx-2"/>
+                    <span className="text-sm">{translateTime(show.show_time, i18n.language)}</span>
                 </div>
 
                 <Link to={`/show/${show.id}`}>

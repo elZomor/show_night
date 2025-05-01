@@ -5,12 +5,18 @@ import {useTranslation} from 'react-i18next';
 
 import PageTransition from '../components/PageTransition';
 import Logo from "../assets/logo_navbar.png";
-import {festivals} from "../data/festivals.ts";
 import FestivalCard from "../components/FestivalCard.tsx";
+import {useQuery} from "@tanstack/react-query";
+import {get_request} from "../utils/APIClient.ts";
+import {Festival} from "../types/Festival.ts";
 
 const FestivalPage: React.FC = () => {
     const {t} = useTranslation();
-    const festivalsList = festivals;
+    const {data} = useQuery({
+        queryKey: ['festivals'],
+        queryFn: () => get_request(`/shows/festivals`),
+    });
+    const festivalsList: Festival[] = data ? data['results'] : [];
     const containerVariants = {
         hidden: {opacity: 0},
         visible: {

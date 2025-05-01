@@ -1,13 +1,20 @@
+import {Show} from "./Show.ts";
+
 export type FestivalStatus = 'Soon' | 'Running' | 'Done';
 
 export interface Festival {
     id: string;
     name: string;
-    startDate: string;
-    endDate: string;
+    start_date: string;
+    end_date: string;
+    organizer?: string;
+    jury_list?: Record<string, string>;
+    awards?: string[];
+    extra_details?: string[];
+    festival_status: string;
+    logo: string;
     description?: string;
-    logo?: string;
-    type: string;
+    shows?: Show[];
 }
 
 export interface FestivalDetails {
