@@ -13,6 +13,7 @@ import {useTranslation} from "react-i18next";
 import FestivalsPage from "./pages/FestivalsPage.tsx";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
+import Footer from "./components/Footer.tsx";
 
 
 const queryClient = new QueryClient();
@@ -42,9 +43,11 @@ function App() {
                         <Route path="/festivals/:id" element={<FestivalDetailsPage/>}/>
                     </Routes>
                 </AnimatePresence>
+                <Footer/>
             </div>
         </QueryClientProvider>
-    );
+    )
+        ;
 }
 
 export default App;

@@ -9,6 +9,7 @@ import {get_request} from "../utils/APIClient.ts";
 import {Festival} from "../types/Festival.ts";
 import {getLongFormattedDate} from "../utils/DateUtils.ts";
 import ShowCard from "../components/ShowCard.tsx";
+import Spinner from "../components/Spinner.tsx";
 
 interface InfoRowProps {
     icon: React.ReactNode;
@@ -37,12 +38,13 @@ const containerVariants = {
 const FestivalDetailsPage: React.FC = () => {
     const {id} = useParams<{ id: string }>();
     const {t, i18n} = useTranslation();
-    const {data} = useQuery<Festival>({
+    const {data, isLoading} = useQuery<Festival>({
         queryKey: ['festival', id],
         queryFn: () => get_request(`/shows/festivals/${id}`),
     });
-    return (data && <PageTransition>
-            <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
+    return (<PageTransition>
+            {isLoading && <Spinner/>}
+            {data && <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
 
 
                 <motion.div
@@ -184,7 +186,7 @@ const FestivalDetailsPage: React.FC = () => {
                         </motion.div>
                     )}
                 </motion.div>
-            </div>
+            </div>}
         </PageTransition>
     );
 };

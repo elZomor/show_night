@@ -9,10 +9,11 @@ import FestivalCard from "../components/FestivalCard.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {get_request} from "../utils/APIClient.ts";
 import {Festival} from "../types/Festival.ts";
+import Spinner from '../components/Spinner.tsx';
 
 const FestivalPage: React.FC = () => {
     const {t} = useTranslation();
-    const {data} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey: ['festivals'],
         queryFn: () => get_request(`/shows/festivals`),
     });
@@ -29,7 +30,8 @@ const FestivalPage: React.FC = () => {
 
     return (
         <PageTransition>
-            <div className="container-custom pt-6 pb-24">
+            {isLoading && <Spinner/>}
+            {data && <div className="container-custom pt-6 pb-24">
                 <div className="flex flex-col items-center mb-6">
                     <div className="flex flex-col justify-center items-center text-center">
                         <img
@@ -74,7 +76,7 @@ const FestivalPage: React.FC = () => {
                         </motion.div>
                     )}
                 </motion.div>
-            </div>
+            </div>}
         </PageTransition>
     );
 };

@@ -52,18 +52,20 @@
   },
   "about": {
     "title": "About",
-    "description": "Theater Today is your one-stop app for all theater shows in your city. Browse current shows, search for upcoming performances, and stay updated with the latest in theater.",
+    "description": "We’re not just a platform — we’re \"Show Night\".\nAt Play Cast, our team is made up of creatives, developers, critics, and artists, all coming from different backgrounds but united by one passion: theater.\nThrough \"Show Night\", we’re building a real space for theater-makers and art lovers — a space that makes it easier to discover performances and festivals, and also documents their stories in depth.",
     "contactUs": "Contact Us",
     "email": "Email",
     "whatsapp": "WhatsApp",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "other_projects": "Other Projects",
+    "actogram_tagline": "Connect with talented actors, discover new opportunities, and bring your creative vision to life."
   },
   "nav": {
     "home": "Home",
     "search": "Search",
     "notifications": "Notifications",
-    "about": "About",
+    "about": "About Us",
     "festivals": "Festivals"
   },
   "festival": {
@@ -83,5 +85,12 @@
     "best_actress": "Best Actress",
     "best_stage_design": "Best Stage Design",
     "jury_award": "Jury Award"
+  },
+  "shared": {
+    "loading": "Loading"
+  },
+  "footer": {
+    "copy_rights": "Copy Rights",
+    "details": "Contact Us"
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 
@@ -10,6 +9,7 @@ import Logo from "../assets/logo_navbar.png";
 import {useQuery} from "@tanstack/react-query";
 import {get_request} from "../utils/APIClient.ts";
 import {Show} from "../types/Show.ts";
+import Spinner from "../components/Spinner.tsx";
 
 const HomePage: React.FC = () => {
     const {t, i18n} = useTranslation();
@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
         }
     };
 
-    const {data} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey: ['shows'],
         queryFn: () => get_request(`/shows?date=${formatDateForRequest(new Date())}`),
     });
@@ -32,7 +32,8 @@ const HomePage: React.FC = () => {
 
     return (
         <PageTransition>
-            <div className="container-custom pt-6 pb-24">
+            {isLoading && <Spinner/>}
+            {data && <div className="container-custom pt-6 pb-24">
                 <div className="flex flex-col items-center mb-6">
                     <div className="flex flex-col justify-center items-center text-center">
                         <img
@@ -67,7 +68,7 @@ const HomePage: React.FC = () => {
                             animate="visible"
                         >
                             {showsList.map((show, index) => (
-                                <ShowCard key={show.id} show={show} index={index}/>
+                                <ShowCard key={show.id} show={show} index={index} showDate={false}/>
                             ))}
                         </motion.div>
                     ) : (
@@ -80,13 +81,13 @@ const HomePage: React.FC = () => {
                             <h3 className="text-2xl font-display font-semibold text-secondary-400 mb-4">
                                 {t('home.noShows')}
                             </h3>
-                            <Link to="/search" className="btn-primary bg-secondary-500 inline-block">
-                                {t('search.title')}
-                            </Link>
+                            {/*<Link to="/search" className="btn-primary bg-secondary-500 inline-block">*/}
+                            {/*    {t('search.title')}*/}
+                            {/*</Link>*/}
                         </motion.div>
                     )}
                 </motion.div>
-            </div>
+            </div>}
         </PageTransition>
     );
 };

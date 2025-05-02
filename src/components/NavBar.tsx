@@ -52,9 +52,9 @@ const NavBar: React.FC = () => {
                 <div className="hidden md:flex items-center gap-8">
                     <NavItem to="/home" label={t('nav.home')} isActive={isActive('/home')}/>
                     <NavItem to="/festivals" label={t('nav.festivals')} isActive={isActive('/festivals')}/>
+                    <NavItem to="/about" label={t('nav.about')} isActive={isActive('/about')}/>
                     {/*<NavItem to="/search" label={t('nav.search')} isActive={isActive('/search')}/>*/}
                     {/*<NavItem to="/alerts" label={t('nav.notifications')} isActive={isActive('/alerts')}/>*/}
-                    {/*<NavItem to="/about" label={t('nav.about')} isActive={isActive('/about')}/>*/}
                     <LanguageSwitcher/>
                 </div>
 
@@ -76,13 +76,12 @@ const NavBar: React.FC = () => {
                                        isActive={isActive('/home')}/>
                         <NavItemMobile to="/festivals" label={t('nav.festivals')} setIsMenuOpen={setIsMenuOpen}
                                        isActive={isActive('/festivals')}/>
-
+                        <NavItemMobile to="/about" label={t('nav.about')} setIsMenuOpen={setIsMenuOpen}
+                                       isActive={isActive('/about')}/>
                         {/*<NavItemMobile to="/search" label={t('nav.search')} setIsMenuOpen={setIsMenuOpen}*/}
                         {/*               isActive={isActive('/search')}/>*/}
                         {/*<NavItemMobile to="/alerts" label={t('nav.notifications')} setIsMenuOpen={setIsMenuOpen}*/}
                         {/*               isActive={isActive('/alerts')}/>*/}
-                        {/*<NavItemMobile to="/about" label={t('nav.about')} setIsMenuOpen={setIsMenuOpen}*/}
-                        {/*               isActive={isActive('/about')}/>*/}
                         <LanguageSwitcher/>
                     </div>
                 )}
