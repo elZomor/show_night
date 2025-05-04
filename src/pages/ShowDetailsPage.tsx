@@ -94,6 +94,9 @@ const ShowDetailsPage: React.FC = () => {
                                 <InfoRow icon={<></>} label={t('show.author')} value={data.author}/>
                             )}
                             <InfoRow icon={<></>} label={t('show.director')} value={data.director}/>
+                            {data.festival_name && (
+                                <InfoRow icon={<></>} label={t('show.show_description')} value={data.show_description}/>
+                            )}
                             <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>
                             <InfoRow icon={<></>} label={t('show.venue')} value={<>
                                 {data.theater_name}
@@ -112,6 +115,9 @@ const ShowDetailsPage: React.FC = () => {
                                      value={getLongFormattedDate(i18n.language, new Date(data.show_date))}/>
                             <InfoRow icon={<></>} label={t('show.time')}
                                      value={translateTime(data.show_time, i18n.language)}/>
+                            {data.cast_note && (
+                                <InfoRow icon={<></>} label={t('show.cast_note')} value={data.cast_note}/>
+                            )}
                         </div>
 
                         {data.cast && (

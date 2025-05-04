@@ -88,6 +88,32 @@ const FestivalDetailsPage: React.FC = () => {
                             )}
                         </div>
 
+                        {data.organizing_team && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.organizing_team')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {Array.isArray(data.organizing_team) ? (
+                                        data.organizing_team.map((item, index) => (
+                                            <li key={index} className="text-gray-400">
+                                                {item}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        Object.entries(data.organizing_team).map(([key, value]) => (
+                                            <li key={key}>
+                                                {key}: <span className="text-gray-400">{value}</span>
+                                            </li>
+                                        ))
+                                    )}
+                                </ul>
+                            </motion.div>
+                        )}
+
                         {data.jury_list && (
                             <motion.div
                                 className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"

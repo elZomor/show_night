@@ -41,7 +41,9 @@
     "show_map": "اعرض الخريطة",
     "cast": "الممثلون",
     "crew": "فريق عمل العرض",
-    "extra_details": "تفاصيل أخرى"
+    "extra_details": "تفاصيل أخرى",
+    "show_description": "نبذة عن العرض",
+    "cast_note": "كلمة الفريق"
   },
   "notifications": {
     "title": "الإشعارات",
@@ -84,7 +86,8 @@
     "best_actor": "أفضل ممثل",
     "best_actress": "أفضل ممثلة",
     "best_stage_design": "أفضل ديكور",
-    "jury_award": "جائزة لجنة التحكيم الخاصة"
+    "jury_award": "جائزة لجنة التحكيم الخاصة",
+    "organizing_team": "فريق المنظمين"
   },
   "shared": {
     "loading": "بنحمّل البيانات"

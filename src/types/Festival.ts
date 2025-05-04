@@ -15,6 +15,7 @@ export interface Festival {
     logo: string;
     description?: string;
     shows?: Show[];
+    organizing_team?: Record<string, string>;
 }
 
 export interface FestivalDetails {

@@ -41,7 +41,9 @@
     "show_map": "show map",
     "cast": "Acting Cast",
     "crew": "Cast",
-    "extra_details": "Extra Details"
+    "extra_details": "Extra Details",
+    "show_description": "Brief about play",
+    "cast_note": "Cast Message"
   },
   "notifications": {
     "title": "Notifications",
@@ -84,7 +86,8 @@
     "best_actor": "Best Actor",
     "best_actress": "Best Actress",
     "best_stage_design": "Best Stage Design",
-    "jury_award": "Jury Award"
+    "jury_award": "Jury Award",
+    "organizing_team": "Organizing Team"
   },
   "shared": {
     "loading": "Loading"

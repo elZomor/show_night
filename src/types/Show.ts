@@ -19,4 +19,6 @@ export interface Show {
     festival_name?: string;
     cast: Record<string, string>
     crew: Record<string, string>
+    show_description?: string;
+    cast_note?: string;
 }
