@@ -161,7 +161,7 @@ const FestivalDetailsPage: React.FC = () => {
 
                         {data.extra_details && (
                             <motion.div
-                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5}}

@@ -97,7 +97,8 @@ const ShowDetailsPage: React.FC = () => {
                             {data.show_description && (
                                 <InfoRow icon={<></>} label={t('show.show_description')} value={data.show_description}/>
                             )}
-                            <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>
+                            {data.cast_name && (
+                                <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>)}
                             <InfoRow icon={<></>} label={t('show.venue')} value={<>
                                 {data.theater_name}
                                 <motion.a

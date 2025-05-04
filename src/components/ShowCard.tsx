@@ -62,10 +62,11 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
                 <h3 className="text-xl font-display font-semibold text-white pb-[-10px]">{show.name}</h3>
                 <h2 className={`text-m mb-4 ${show.is_open ? 'text-green-500' : 'text-accent-500'}`}>{show.is_open ? t('show.available') : t('show.finished')}</h2>
 
-                <div className="flex items-center text-gray-300 mb-2">
-                    <Users size={16} className="mx-2"/>
-                    <span className="text-sm">{show.cast_name}</span>
-                </div>
+                {show.cast_name && (
+                    <div className="flex items-center text-gray-300 mb-2">
+                        <Users size={16} className="mx-2"/>
+                        <span className="text-sm">{show.cast_name}</span>
+                    </div>)}
 
                 <div className="flex items-center text-gray-300 mb-2">
                     <MapPin size={16} className="mx-2"/>
