@@ -94,9 +94,6 @@ const ShowDetailsPage: React.FC = () => {
                                 <InfoRow icon={<></>} label={t('show.author')} value={data.author}/>
                             )}
                             <InfoRow icon={<></>} label={t('show.director')} value={data.director}/>
-                            {data.show_description && (
-                                <InfoRow icon={<></>} label={t('show.show_description')} value={data.show_description}/>
-                            )}
                             {data.cast_name && (
                                 <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>)}
                             <InfoRow icon={<></>} label={t('show.venue')} value={<>
@@ -120,6 +117,18 @@ const ShowDetailsPage: React.FC = () => {
                                 <InfoRow icon={<></>} label={t('show.cast_note')} value={data.cast_note}/>
                             )}
                         </div>
+
+                        {data.show_description && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('show.show_description')}</h3>
+                                <div> {data.show_description}</div>
+                            </motion.div>
+                        )}
 
                         {data.cast && (
                             <motion.div
