@@ -126,7 +126,7 @@ const ShowDetailsPage: React.FC = () => {
                                 transition={{duration: 0.5}}
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('show.show_description')}</h3>
-                                <div> {data.show_description}</div>
+                                <div className="text-gray-400"> {data.show_description}</div>
                             </motion.div>
                         )}
 
