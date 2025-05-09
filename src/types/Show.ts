@@ -17,6 +17,7 @@ export interface Show {
     is_open: boolean;
     link: string;
     festival_name?: string;
+    festival_id?: string;
     cast: Record<string, string>
     crew: Record<string, string>
     show_description?: string;

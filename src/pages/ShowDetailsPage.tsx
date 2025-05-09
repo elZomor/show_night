@@ -6,8 +6,10 @@ import {useTranslation} from 'react-i18next';
 import PageTransition from '../components/PageTransition';
 import {useQuery} from "@tanstack/react-query";
 import {get_request} from "../utils/APIClient.ts";
-import {getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
+import {compareWithToday, getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
 import {Show} from "../types/Show.ts";
+import {Share2} from 'lucide-react';
+import {baseUrl} from "../constants.ts";
 
 interface InfoRowProps {
     icon: React.ReactNode;
@@ -30,6 +32,30 @@ const ShowDetailsPage: React.FC = () => {
         queryKey: ['show', id],
         queryFn: () => get_request(`/shows/${id}`),
     });
+
+    const getShowStatusName = (showDate: string) => {
+        const comparisonResult = compareWithToday(new Date(showDate))
+        switch (comparisonResult) {
+            case "AFTER":
+                return t('show.available')
+            case "BEFORE":
+                return t('show.finished')
+            case "EQUALS":
+                return t('show.today')
+        }
+
+    }
+    const getShowStatusClass = (showDate: string) => {
+        const comparisonResult = compareWithToday(new Date(showDate))
+        switch (comparisonResult) {
+            case "AFTER":
+                return 'text-green-400'
+            case "BEFORE":
+                return 'text-accent-500'
+            case "EQUALS":
+                return 'text-secondary-400'
+        }
+    }
 
     return (data && <PageTransition>
             <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
@@ -67,13 +93,34 @@ const ShowDetailsPage: React.FC = () => {
                             visible: {opacity: 1, y: 0},
                         }}
                     >
-                        <div className="md:flex items-center md:gap-2">
-                            <h1 className="text-4xl font-display font-bold md:mb-6 text-secondary-500 text-center md:text-left">
+                        <div className="flex items-center gap-3 mb-2 justify-center md:justify-start">
+                            <h1 className="text-4xl font-display font-bold text-secondary-500 leading-tight">
                                 {data.name}
                             </h1>
-                            <h1 className={`text-4xl font-display font-bold mb-6 md:mx-12 text-center md:text-left ${data.is_open ? 'text-green-500' : 'text-accent-500'}`}>
-                                {data.is_open ? t('show.available') : t('show.finished')}
-                            </h1>
+                            <motion.button
+                                onClick={() => {
+                                    const url = `${baseUrl}/shows/${data.id}/share`;
+                                    if (navigator.share) {
+                                        navigator.share({
+                                            title: data.name,
+                                            url,
+                                        });
+                                    } else {
+                                        navigator.clipboard.writeText(url);
+                                        alert(t('link_copied'));
+                                    }
+                                }}
+                                className="text-sm mx-2 text-accent-500 hover:text-secondary-500 font-medium underline text-center md:text-left"
+                                whileHover={{scale: 1.05}}
+                                whileTap={{scale: 0.95}}
+                            >
+                                <Share2 size={30}/>
+                            </motion.button>
+                        </div>
+                        <div className="md:flex items-start">
+                            <h3 className={`text-xl font-display font-bold mb-6 text-center md:text-right ${getShowStatusClass(data.show_date)}`}>
+                                {getShowStatusName(data.show_date)}
+                            </h3>
                         </div>
 
                         <div className="space-y-4 text-base mb-8">
@@ -88,7 +135,12 @@ const ShowDetailsPage: React.FC = () => {
                                 {t('show.facebook_link')}
                             </motion.a>}/>
                             {data.festival_name && (
-                                <InfoRow icon={<></>} label={t('show.festival')} value={data.festival_name}/>
+                                <InfoRow icon={<></>} label={t('show.festival')} value={<a
+                                    href={`/festivals/${data.festival_id}`}
+                                    className="text-secondary-400 hover:text-accent-500"
+                                >
+                                    {data.festival_name}
+                                </a>}/>
                             )}
                             {data.author && (
                                 <InfoRow icon={<></>} label={t('show.author')} value={data.author}/>

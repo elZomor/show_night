@@ -31,3 +31,15 @@ export const translateTime = (timeStr: string, language: string): string => {
     // Format it with locale-specific AM/PM
     return format(parsedTime, 'hh:mm a', {locale});
 };
+
+type DateComparison = "BEFORE" | "AFTER" | "EQUALS"
+
+export const compareWithToday = (date: Date): DateComparison => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    if (today < date) return "AFTER";
+    if (today > date) return "BEFORE";
+    return "EQUALS";
+};

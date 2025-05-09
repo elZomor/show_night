@@ -2,6 +2,8 @@
   "appName": "Show Night",
   "slogan": "Don't let a night pass, without a theatrical show",
   "tagline": "All theater shows in your pocket",
+  "link_copied": "Link copied to clipboard!",
+  "share": "Share",
   "home": {
     "todaysShows": "Today's Shows",
     "noShows": "No shows scheduled for today",
@@ -34,6 +36,8 @@
     "notes": "Notes",
     "finished": "Finished ✔",
     "available": "Available 📅",
+    "soon": "Soon",
+    "today": "Today",
     "event_link": "Event Link",
     "facebook_link": "Facebook Link",
     "reservation_link": "Reservation Link",
@@ -43,7 +47,8 @@
     "crew": "Cast",
     "extra_details": "Extra Details",
     "show_description": "Brief about play",
-    "cast_note": "Cast Message"
+    "cast_note": "Cast Message",
+    "for_director": "For"
   },
   "notifications": {
     "title": "Notifications",

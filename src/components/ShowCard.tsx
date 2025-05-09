@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {useTranslation} from 'react-i18next';
 import {Show} from '../types/Show';
-import {Calendar, Clock, MapPin, Users} from 'lucide-react';
-import {getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
+import {Calendar, Clock, MapPin, UserCog, Users} from 'lucide-react';
+import {compareWithToday, getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
 
 interface ShowCardProps {
     show: Show;
@@ -14,6 +14,30 @@ interface ShowCardProps {
 
 const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
     const {t, i18n} = useTranslation();
+
+    const getShowStatusName = (showDate: string) => {
+        const comparisonResult = compareWithToday(new Date(showDate))
+        switch (comparisonResult) {
+            case "AFTER":
+                return t('show.available')
+            case "BEFORE":
+                return t('show.finished')
+            case "EQUALS":
+                return t('show.today')
+        }
+
+    }
+    const getShowStatusClass = (showDate: string) => {
+        const comparisonResult = compareWithToday(new Date(showDate))
+        switch (comparisonResult) {
+            case "AFTER":
+                return 'text-green-400'
+            case "BEFORE":
+                return 'text-accent-500'
+            case "EQUALS":
+                return 'text-secondary-400'
+        }
+    }
 
     // const getBadgeClass = (type: string) => {
     //     switch (type) {
@@ -60,13 +84,19 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
 
             <div className="p-4">
                 <h3 className="text-xl font-display font-semibold text-white pb-[-10px]">{show.name}</h3>
-                <h2 className={`text-m mb-4 ${show.is_open ? 'text-green-500' : 'text-accent-500'}`}>{show.is_open ? t('show.available') : t('show.finished')}</h2>
+                <h2 className={`text-m mb-4 ${getShowStatusClass(show.show_date)}`}>
+                    {getShowStatusName(show.show_date)}</h2>
 
                 {show.cast_name && (
                     <div className="flex items-center text-gray-300 mb-2">
                         <Users size={16} className="mx-2"/>
                         <span className="text-sm">{show.cast_name}</span>
                     </div>)}
+
+                <div className="flex items-center text-gray-300 mb-2">
+                    <UserCog size={16} className="mx-2"/>
+                    <span className="text-sm">{t('show.for_director')}: {show.director}</span>
+                </div>
 
                 <div className="flex items-center text-gray-300 mb-2">
                     <MapPin size={16} className="mx-2"/>
