@@ -2,6 +2,12 @@ import {Show} from "./Show.ts";
 
 export type FestivalStatus = 'Soon' | 'Running' | 'Done';
 
+export interface Publication {
+    file: string;
+    publication_number?: string
+    publication_date?: string
+}
+
 export interface Festival {
     id: string;
     name: string;
@@ -11,6 +17,7 @@ export interface Festival {
     jury_list?: Record<string, string>;
     awards?: string[];
     extra_details?: string[];
+    publications?: Publication[];
     festival_status: string;
     logo: string;
     description?: string;

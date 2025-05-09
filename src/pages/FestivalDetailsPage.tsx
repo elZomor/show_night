@@ -10,6 +10,7 @@ import {Festival} from "../types/Festival.ts";
 import {getLongFormattedDate} from "../utils/DateUtils.ts";
 import ShowCard from "../components/ShowCard.tsx";
 import Spinner from "../components/Spinner.tsx";
+import PublicationCard from "../components/PublicationCard.tsx";
 
 interface InfoRowProps {
     icon: React.ReactNode;
@@ -212,6 +213,32 @@ const FestivalDetailsPage: React.FC = () => {
                         </motion.div>
                     )}
                 </motion.div>
+                {data.publications && data.publications.length > 0 && (
+                    <motion.div
+                        className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mt-10"
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5}}
+                    >
+                        <h3 className="text-lg font-semibold mb-6 text-white">{t('festival.publications')}</h3>
+
+                        <motion.div
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {data.publications.map((pub, index) => (
+                                <PublicationCard
+                                    key={index}
+                                    fileUrl={pub.file}
+                                    number={pub.publication_number}
+                                    date={pub.publication_date}
+                                />
+                            ))}
+                        </motion.div>
+                    </motion.div>
+                )}
             </div>}
         </PageTransition>
     );
