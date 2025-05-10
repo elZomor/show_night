@@ -54,7 +54,7 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
 
     return (
         <motion.div
-            className="bg-[#1c1f29] rounded-lg overflow-hidden shadow-lg shadow-black/40 "
+            className="bg-[#1c1f29] rounded-lg overflow-hidden shadow-lg shadow-black/40 flex flex-col justify-between h-full"
             initial={{opacity: 0, y: 20}}
             animate={{opacity: 1, y: 0}}
             transition={{
@@ -64,15 +64,15 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
             }}
         >
 
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden mt-3">
                 <motion.div
                     whileHover={{scale: 1.05}}
                     transition={{duration: 0.3}}
                 >
                     <img
-                        src={show.poster}
+                        src={show.poster ? show.poster : 'https://img.freepik.com/free-photo/theater-stage-spotlight_23-2151949833.jpg?t=st=1746836255~exp=1746839855~hmac=ce8c2cd8984e50f332ee8e1512509d6d2b0382cfd0d43dbb44a8a434339d14ce&w=900'}
                         alt={show.name}
-                        className="w-full h-48 object-contain "
+                        className="w-full h-80 object-contain "
                     />
                 </motion.div>
                 <div className="absolute top-2 right-2">
@@ -112,7 +112,9 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
                     <Clock size={16} className="mx-2"/>
                     <span className="text-sm">{translateTime(show.show_time, i18n.language)}</span>
                 </div>
+            </div>
 
+            <div className="px-4 mt-auto mb-5">
                 <Link to={`/show/${show.id}`}>
                     <motion.button
                         className="btn-primary w-full"

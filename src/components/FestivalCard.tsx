@@ -29,7 +29,7 @@ const FestivalCard: React.FC<FestivalCardProps> = ({festival, index}) => {
 
     return (
         <motion.div
-            className="bg-[#1c1f29] rounded-lg overflow-hidden shadow-lg shadow-black/40 "
+            className="bg-[#1c1f29] rounded-lg overflow-hidden shadow-lg shadow-black/40 flex flex-col justify-between h-full"
             initial={{opacity: 0, y: 20}}
             animate={{opacity: 1, y: 0}}
             transition={{
@@ -45,9 +45,9 @@ const FestivalCard: React.FC<FestivalCardProps> = ({festival, index}) => {
                     transition={{duration: 0.3}}
                 >
                     <img
-                        src={festival.logo}
+                        src={festival.logo ? festival.logo : 'https://img.freepik.com/free-photo/theater-stage-spotlight_23-2151949833.jpg?t=st=1746836255~exp=1746839855~hmac=ce8c2cd8984e50f332ee8e1512509d6d2b0382cfd0d43dbb44a8a434339d14ce&w=900'}
                         alt={festival.name}
-                        className=" object-contain w-full h-full"
+                        className="w-full h-80 object-contain "
                     />
                 </motion.div>
                 <div className="absolute top-2 right-2">

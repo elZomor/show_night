@@ -79,7 +79,7 @@ const ShowDetailsPage: React.FC = () => {
                         }}
                     >
                         <img
-                            src={data.poster}
+                            src={data.poster ? data.poster : 'https://img.freepik.com/free-photo/theater-stage-spotlight_23-2151949833.jpg?t=st=1746836255~exp=1746839855~hmac=ce8c2cd8984e50f332ee8e1512509d6d2b0382cfd0d43dbb44a8a434339d14ce&w=900'}
                             alt={data.name}
                             className="w-full h-[350px] md:h-[700px] rounded-2xl shadow-lg bg-primary-950 object-contain"
                         />
