@@ -50,7 +50,8 @@
     "show_description": "Brief about play",
     "cast_note": "Cast Message",
     "for_director": "For",
-    "show_dates": "Show nights"
+    "show_dates": "Show nights",
+    "night": "Show Nights"
   },
   "notifications": {
     "title": "Notifications",

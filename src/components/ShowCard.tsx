@@ -5,6 +5,8 @@ import {useTranslation} from 'react-i18next';
 import {Show} from '../types/Show';
 import {Calendar, Clock, MapPin, UserCog, Users} from 'lucide-react';
 import {compareWithToday, getLongFormattedDate, translateTime} from "../utils/DateUtils.ts";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faClockRotateLeft} from '@fortawesome/free-solid-svg-icons';
 
 interface ShowCardProps {
     show: Show;
@@ -102,6 +104,12 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
                     <MapPin size={16} className="mx-2"/>
                     <span className="text-sm">{show.nearest_night.theater_name}</span>
                 </div>
+
+                {show.show_dates.length > 1 && <div className="flex items-center text-gray-300 mb-2">
+                    <FontAwesomeIcon icon={faClockRotateLeft} className="w-4 h-4 mx-2"/>
+                    <span
+                        className="text-sm">{show.show_dates.length} {t('show.night')}</span>
+                </div>}
 
                 {showDate && <div className="flex items-center text-gray-300 mb-2">
                     <Calendar size={16} className="mx-2"/>

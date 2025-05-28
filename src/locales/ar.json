@@ -50,7 +50,8 @@
     "show_description": "نبذة عن العرض",
     "cast_note": "كلمة الفريق",
     "for_director": "للمخرج",
-    "show_dates": "ليالي العرض"
+    "show_dates": "ليالي العرض",
+    "night": "ليلة عرض"
   },
   "notifications": {
     "title": "الإشعارات",
