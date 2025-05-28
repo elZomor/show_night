@@ -119,7 +119,7 @@ const ShowDetailsPage: React.FC = () => {
                             </motion.button>
                         </div>
                         <div className="md:flex items-start">
-                            <h3 className={`text-xl font-display font-bold mb-6 text-center md:text-right ${getShowStatusClass(data.show_date)}`}>
+                            <h3 className={`text-xl font-display font-bold mb-6 text-center md:text-right ${getShowStatusClass(data.nearest_night.show_date)}`}>
                                 {getShowStatusName(data.show_date)}
                             </h3>
                         </div>
@@ -185,7 +185,7 @@ const ShowDetailsPage: React.FC = () => {
 
                         {data.show_dates && data.show_dates.length > 1 && (
                             <motion.div
-                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300 mb-8"
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5}}
