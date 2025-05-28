@@ -24,15 +24,18 @@ const ShowsPage: React.FC = () => {
         }
     };
 
-    const [searchDate, setSearchDate] = useState<Date | undefined>(undefined);
     const [searchParams, setSearchParams] = useSearchParams();
     const page = parseInt(searchParams.get('page') || '1', 10);
+    const rawDate = searchParams.get('date');
+    const parsedDate = rawDate ? new Date(rawDate) : undefined;
+    const [searchDate, setSearchDate] = useState<Date | undefined>(parsedDate);
 
-    const formatted = searchDate ? formatDateForRequest(searchDate) : undefined;
+    const formatted = rawDate || undefined;
     const {data, isLoading} = useQuery({
         queryKey: ['shows', formatted, page],
         queryFn: () =>
-            get_request(`/shows/${formatted ? `?date=${formatted}&page=${page}&page_size=9` : `?page=${page}&page_size=9`}`),
+            get_request(`/shows?page=${page}&page_size=9${rawDate ? `&date=${rawDate}` : ''}`),
+
     });
 
     const showsList: Show[] = data?.results || [];
@@ -64,7 +67,11 @@ const ShowsPage: React.FC = () => {
                             selected={searchDate}
                             onSelect={(date) => {
                                 setSearchDate(date);
-                                setSearchParams({page: '1', ...(date ? {date: formatDateForRequest(date)} : {})});
+                                const params = new URLSearchParams(searchParams);
+                                params.set('page', '1');
+                                if (date) params.set('date', formatDateForRequest(date));
+                                else params.delete('date');
+                                setSearchParams(params);
                             }}
                         />
                     </div>
