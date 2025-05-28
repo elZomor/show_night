@@ -162,7 +162,7 @@ const ShowDetailsPage: React.FC = () => {
                                     ({t('show.show_map')})
                                 </motion.a>
                             </>}/>
-                            <InfoRow icon={<></>} label={t('show.show_nights')} value={data.show_date?.length}/>
+                            <InfoRow icon={<></>} label={t('show.show_dates')} value={data.show_dates.length}/>
                             <InfoRow icon={<></>} label={t('show.date')}
                                      value={getLongFormattedDate(i18n.language, new Date(data.nearest_night.show_date))}/>
                             <InfoRow icon={<></>} label={t('show.time')}
