@@ -22,7 +22,8 @@
     "noResults": "No results found",
     "Soon": "Soon",
     "Running": "Running",
-    "Finished": "Finished"
+    "Finished": "Finished",
+    "pick_date": "Pick a date"
   },
   "show": {
     "author": "Author",
@@ -71,7 +72,7 @@
   },
   "nav": {
     "home": "Home",
-    "search": "Search",
+    "show": "Shows",
     "notifications": "Notifications",
     "about": "About Us",
     "festivals": "Festivals"

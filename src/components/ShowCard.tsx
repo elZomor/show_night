@@ -84,8 +84,8 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
 
             <div className="p-4">
                 <h3 className="text-xl font-display font-semibold text-white pb-[-10px]">{show.name}</h3>
-                <h2 className={`text-m mb-4 ${getShowStatusClass(show.show_date)}`}>
-                    {getShowStatusName(show.show_date)}</h2>
+                <h2 className={`text-m mb-4 ${getShowStatusClass(show.nearest_night.show_date)}`}>
+                    {getShowStatusName(show.nearest_night.show_date)}</h2>
 
                 {show.cast_name && (
                     <div className="flex items-center text-gray-300 mb-2">

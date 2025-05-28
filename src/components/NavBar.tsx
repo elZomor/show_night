@@ -51,9 +51,9 @@ const NavBar: React.FC = () => {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8">
                     <NavItem to="/home" label={t('nav.home')} isActive={isActive('/home')}/>
+                    <NavItem to="/show" label={t('nav.show')} isActive={isActive('/show')}/>
                     <NavItem to="/festivals" label={t('nav.festivals')} isActive={isActive('/festivals')}/>
                     <NavItem to="/about" label={t('nav.about')} isActive={isActive('/about')}/>
-                    {/*<NavItem to="/search" label={t('nav.search')} isActive={isActive('/search')}/>*/}
                     {/*<NavItem to="/alerts" label={t('nav.notifications')} isActive={isActive('/alerts')}/>*/}
                     <LanguageSwitcher/>
                 </div>
@@ -74,6 +74,8 @@ const NavBar: React.FC = () => {
                     >
                         <NavItemMobile to="/home" label={t('nav.home')} setIsMenuOpen={setIsMenuOpen}
                                        isActive={isActive('/home')}/>
+                        <NavItemMobile to="/show" label={t('nav.show')} setIsMenuOpen={setIsMenuOpen}
+                                       isActive={isActive('/show')}/>
                         <NavItemMobile to="/festivals" label={t('nav.festivals')} setIsMenuOpen={setIsMenuOpen}
                                        isActive={isActive('/festivals')}/>
                         <NavItemMobile to="/about" label={t('nav.about')} setIsMenuOpen={setIsMenuOpen}
