@@ -120,7 +120,7 @@ const ShowDetailsPage: React.FC = () => {
                         </div>
                         <div className="md:flex items-start">
                             <h3 className={`text-xl font-display font-bold mb-6 text-center md:text-right ${getShowStatusClass(data.nearest_night.show_date)}`}>
-                                {getShowStatusName(data.show_date)}
+                                {getShowStatusName(data.nearest_night.show_date)}
                             </h3>
                         </div>
 
