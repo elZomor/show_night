@@ -1,3 +1,5 @@
+import {ShowDate} from "./ShowDate.ts";
+
 export type ShowType = 'University' | 'Independent' | 'Professional';
 
 export interface Show {
@@ -22,4 +24,6 @@ export interface Show {
     crew: Record<string, string>
     show_description?: string;
     cast_note?: string;
+    show_dates: ShowDate[];
+    nearest_night: ShowDate;
 }

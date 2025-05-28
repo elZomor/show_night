@@ -48,7 +48,8 @@
     "extra_details": "Extra Details",
     "show_description": "Brief about play",
     "cast_note": "Cast Message",
-    "for_director": "For"
+    "for_director": "For",
+    "show_dates": "Show nights"
   },
   "notifications": {
     "title": "Notifications",

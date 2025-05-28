@@ -10,6 +10,7 @@ import {compareWithToday, getLongFormattedDate, translateTime} from "../utils/Da
 import {Show} from "../types/Show.ts";
 import {Share2} from 'lucide-react';
 import {baseUrl} from "../constants.ts";
+import {ShowDate} from "../types/ShowDate.ts";
 
 interface InfoRowProps {
     icon: React.ReactNode;
@@ -149,12 +150,12 @@ const ShowDetailsPage: React.FC = () => {
                             {data.cast_name && (
                                 <InfoRow icon={<></>} label={t('show.company')} value={data.cast_name}/>)}
                             <InfoRow icon={<></>} label={t('show.venue')} value={<>
-                                {data.theater_name}
+                                {data.nearest_night.theater_name}
                                 <motion.a
-                                    href={data.theater_link}
+                                    href={data.nearest_night.theater_link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="mx-2 text-secondary-400 font-bold hover:text-accent-500"
+                                    className="mx-2 text-secondary-400 font-bold hover:text-accent-500 hover:cursor-pointer"
                                     whileHover={{scale: 1.05}}
                                     whileTap={{scale: 0.95}}
                                 >
@@ -162,9 +163,9 @@ const ShowDetailsPage: React.FC = () => {
                                 </motion.a>
                             </>}/>
                             <InfoRow icon={<></>} label={t('show.date')}
-                                     value={getLongFormattedDate(i18n.language, new Date(data.show_date))}/>
+                                     value={getLongFormattedDate(i18n.language, new Date(data.nearest_night.show_date))}/>
                             <InfoRow icon={<></>} label={t('show.time')}
-                                     value={translateTime(data.show_time, i18n.language)}/>
+                                     value={translateTime(data.nearest_night.show_time, i18n.language)}/>
                             {data.cast_note && (
                                 <InfoRow icon={<></>} label={t('show.cast_note')} value={data.cast_note}/>
                             )}
@@ -179,6 +180,37 @@ const ShowDetailsPage: React.FC = () => {
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('show.show_description')}</h3>
                                 <div className="text-gray-400"> {data.show_description}</div>
+                            </motion.div>
+                        )}
+
+                        {data.show_dates && data.show_dates.length > 1 && (
+                            <motion.div
+                                className="bg-theater-dark border border-gray-600 rounded-lg p-4 text-gray-300"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.5}}
+                            >
+                                <h3 className="text-lg font-semibold mb-2 text-white">{t('show.show_dates')}</h3>
+                                <ul className="list-disc list-inside text-gray-300">
+                                    {data.show_dates.map((show_date: ShowDate, i: number) => (
+                                        <li key={i}>{`${getLongFormattedDate(i18n.language, new Date(show_date.show_date))} (${translateTime(show_date.show_time, i18n.language)}) - `}
+                                            <motion.a
+                                                href={show_date.theater_link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="mx-2 text-secondary-400 font-bold hover:text-accent-500 hover:cursor-pointer"
+                                                whileHover={{scale: 1.05}}
+                                                whileTap={{scale: 0.95}}
+                                            >
+                                                {show_date.theater_name}
+                                            </motion.a>
+                                            <span
+                                                className={`font-display font-bold mb-6 text-center md:text-right ${getShowStatusClass(show_date.show_date)}`}>
+                                                ({getShowStatusName(show_date.show_date)})
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </motion.div>
                         )}
 

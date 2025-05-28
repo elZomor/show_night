@@ -100,17 +100,18 @@ const ShowCard: React.FC<ShowCardProps> = ({show, index, showDate}) => {
 
                 <div className="flex items-center text-gray-300 mb-2">
                     <MapPin size={16} className="mx-2"/>
-                    <span className="text-sm">{show.theater_name}</span>
+                    <span className="text-sm">{show.nearest_night.theater_name}</span>
                 </div>
 
                 {showDate && <div className="flex items-center text-gray-300 mb-2">
                     <Calendar size={16} className="mx-2"/>
-                    <span className="text-sm">{getLongFormattedDate(i18n.language, new Date(show.show_date))}</span>
+                    <span
+                        className="text-sm">{getLongFormattedDate(i18n.language, new Date(show.nearest_night.show_date))}</span>
                 </div>
                 }
                 <div className="flex items-center text-gray-300 mb-4">
                     <Clock size={16} className="mx-2"/>
-                    <span className="text-sm">{translateTime(show.show_time, i18n.language)}</span>
+                    <span className="text-sm">{translateTime(show.nearest_night.show_time, i18n.language)}</span>
                 </div>
             </div>
 
