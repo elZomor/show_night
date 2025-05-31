@@ -16,6 +16,7 @@ import Footer from "./components/Footer.tsx";
 import ShowsPage from "./pages/ShowsPage.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import {useAmplitude} from './hooks/useAmplitude.ts';
+import PageTracker from "./hooks/PageTracker.ts";
 
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ function App() {
                 {showNavBar && <NavBar/>}
                 <AnimatePresence mode="wait">
                     <ScrollToTop/>
+                    <PageTracker/>
                     <Routes location={location} key={location.pathname}>
                         <Route path="/" element={<SplashPage/>}/>
                         <Route path="/home" element={<HomePage/>}/>
