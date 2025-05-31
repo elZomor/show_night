@@ -15,6 +15,7 @@ import FestivalDetailsPage from "./pages/FestivalDetailsPage.tsx";
 import Footer from "./components/Footer.tsx";
 import ShowsPage from "./pages/ShowsPage.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
+import {useAmplitude} from './hooks/useAmplitude.ts';
 
 
 const queryClient = new QueryClient();
@@ -27,6 +28,8 @@ function App() {
     useEffect(() => {
         document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     }, [i18n.language]);
+
+    useAmplitude();
 
     return (
         <QueryClientProvider client={queryClient}>
