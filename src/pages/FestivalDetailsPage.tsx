@@ -43,6 +43,40 @@ const FestivalDetailsPage: React.FC = () => {
         queryKey: ['festival', id],
         queryFn: () => get_request(`/shows/festivals/${id}`),
     });
+    const getValueForKey = (member: string | Record<string, string> | Record<string, string[]>) => {
+        if (typeof member === "string") {
+            return member
+        }
+        if ("link" in member) {
+            return <a
+                href={member.link as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary-400 hover:text-accent-500"
+            >
+                {member.text}
+            </a>
+        }
+        if (member.children && member.children.length) {
+            return (
+                <>
+                    {member.text}
+                    <ul className="ms-10 list-[circle]">
+                        {(member.children as string[]).map((child: string | Record<string, string>, j: number) => (
+                            <li key={j}>
+                                {typeof child === "string" ? child : getValueForKey(child)}
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            );
+        }
+        if ("value" in member) {
+            return member.text + ': ' + member.value;
+        }
+        return member.text ?? null;
+
+    }
     return (<PageTransition>
             {isLoading && <Spinner/>}
             {data && <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
@@ -99,10 +133,8 @@ const FestivalDetailsPage: React.FC = () => {
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.organizing_team')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
                                     {Array.isArray(data.organizing_team) ? (
-                                        data.organizing_team.map((item, index) => (
-                                            <li key={index} className="text-gray-400">
-                                                {item}
-                                            </li>
+                                        data.organizing_team.map((member: string | Record<string, string>, i: number) => (
+                                            <li key={i}>{getValueForKey(member)}</li>
                                         ))
                                     ) : (
                                         Object.entries(data.organizing_team).map(([key, value]) => (
@@ -127,7 +159,7 @@ const FestivalDetailsPage: React.FC = () => {
                                     {Array.isArray(data.jury_list) ? (
                                         data.jury_list.map((item, index) => (
                                             <li key={index} className="text-gray-400">
-                                                {item}
+                                                {getValueForKey(item)}
                                             </li>
                                         ))
                                     ) : (
@@ -150,7 +182,11 @@ const FestivalDetailsPage: React.FC = () => {
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.awards')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
-                                    {Object.entries(data.awards).map(([key, value]) => (
+                                    {Array.isArray(data.awards) ? (
+                                        data.awards.map((member: string | Record<string, string>, i: number) => (
+                                            <li key={i}>{getValueForKey(member)}</li>
+                                        ))
+                                    ) : Object.entries(data.awards as Record<string, string>).map(([key, value]) => (
                                         <li key={key}>
                                             {key}: <span
                                             className="text-gray-400">{value}</span>
@@ -169,8 +205,8 @@ const FestivalDetailsPage: React.FC = () => {
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('festival.extra_details')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
-                                    {data.extra_details.map((member: string, i: number) => (
-                                        <li key={i}>{member}</li>
+                                    {data.extra_details.map((member: string | Record<string, string>, i: number) => (
+                                        <li key={i}>{getValueForKey(member)}</li>
                                     ))}
                                 </ul>
                             </motion.div>
