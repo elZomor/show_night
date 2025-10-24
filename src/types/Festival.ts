@@ -16,7 +16,7 @@ export interface Festival {
     organizer?: string;
     jury_list?: Record<string, string>;
     awards?: string[];
-    extra_details?: string[];
+    extra_details?: string[] | Record<string, string>[];
     publications?: Publication[];
     festival_status: string;
     logo: string;
@@ -35,6 +35,6 @@ export interface FestivalDetails {
     participants: string[];
     jury: string[];
     awards: Record<string, string>;
-    extra_details: string[];
+    extra_details: string[] | Record<string, string>[];
     logo: string;
 }

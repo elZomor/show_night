@@ -58,6 +58,41 @@ const ShowDetailsPage: React.FC = () => {
         }
     }
 
+    const getValueForKey = (member: string | Record<string, string> | Record<string, string[]>) => {
+        if (typeof member === "string") {
+            return member
+        }
+        if ("link" in member) {
+            return <a
+                href={member.link as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary-400 hover:text-accent-500"
+            >
+                {member.text}
+            </a>
+        }
+        if (member.children && member.children.length) {
+            return (
+                <>
+                    {member.text}
+                    <ul className="ms-10 list-[circle]">
+                        {(member.children as string[]).map((child: string | Record<string, string>, j: number) => (
+                            <li key={j}>
+                                {typeof child === "string" ? child : getValueForKey(child)}
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            );
+        }
+        if ("value" in member) {
+            return member.text + ': ' + member.value;
+        }
+        return member.text ?? null;
+
+    }
+
     return (data && <PageTransition>
             <div className="container-custom pt-10 md:pt-20 pb-24 text-white">
 
@@ -227,7 +262,7 @@ const ShowDetailsPage: React.FC = () => {
                                     {Array.isArray(data.cast) ? (
                                         data.cast.map((item, index) => (
                                             <li key={index} className="text-gray-400">
-                                                {item}
+                                                {getValueForKey(item)}
                                             </li>
                                         ))
                                     ) : (
@@ -250,7 +285,11 @@ const ShowDetailsPage: React.FC = () => {
                             >
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('show.crew')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
-                                    {Object.entries(data.crew).map(([key, value]) => (
+                                    {Array.isArray(data.crew) ? (
+                                        data.crew.map((member: string | Record<string, string>, i: number) => (
+                                            <li key={i}>{getValueForKey(member)}</li>
+                                        ))
+                                    ) : Object.entries(data.crew).map(([key, value]) => (
                                         <li key={key}>
                                             {key}: <span
                                             className="text-gray-400">{value}</span>
@@ -270,7 +309,7 @@ const ShowDetailsPage: React.FC = () => {
                                 <h3 className="text-lg font-semibold mb-2 text-white">{t('show.extra_details')}</h3>
                                 <ul className="list-disc list-inside text-gray-300">
                                     {data.notes.map((member: string, i: number) => (
-                                        <li key={i}>{member}</li>
+                                        <li key={i}>{getValueForKey(member)}</li>
                                     ))}
                                 </ul>
                             </motion.div>
